@@ -17,13 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from ninja import NinjaAPI
 from heart_surgery.views import profile
+from account.views import account_controller
+
 
 api = NinjaAPI(
     version='1.0.0',
-    title='Commerce API v1',
+    title='Heart Care API v1',
     description='API documentation',
 )
-api.add_router('profilepa', profile)
+api.add_router('auth', account_controller)
+api.add_router('profile', profile)
+
 
 
 

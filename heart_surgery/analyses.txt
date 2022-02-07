@@ -1,0 +1,21 @@
+Mosul Cardiac Center : - It Is Like The hospital management system that helps manage the information related to health care and aids in the job completion of health care providers effectively. They manage the data related to all patients 
+
+ 
+
+Features of system are: - 
+
+
+ -patient information profile for every patient (name, age,..)
+
+ -Diagnoses, Date, and Medications
+
+ -Operation Information
+
+ -Doctors and Staff
+
+ -manage patient profile : 
+ 
+           add patient,delete,edit,and print profile consists all Diagnoses 
+
+
+this website cannot be visible for the visitor it can manage and display just for the admin user.

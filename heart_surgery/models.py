@@ -1,43 +1,34 @@
 from django.db import models
+#from django.contrib.auth.models import User
+from django.db.models.base import Model
+from django.contrib.auth import get_user_model
+
+import uuid
+
+User = get_user_model()
+from config.utils.models import Entity
 
 
-class Profile(models.Model):
-    name = models.CharField("Name",max_length=255)
+
+
+class Profile(Entity):
+    name = models.CharField("Name",max_length=255,null=True)
     age = models.CharField("age",max_length=100)
-    weight = models.IntegerField("Weight",)
+    weight = models.CharField("Weight",max_length=100)
     gender = models.CharField("Gender",max_length=100,choices=[("male","male"),("fmale","fmale")])
-    number = models.AutoField(primary_key=True,verbose_name="Number",unique=True,auto_created=True)
+    number = models.CharField(verbose_name="Number",max_length=100)
     Ward = models.CharField("Ward",max_length=100)
     Bed = models.CharField("Bed",max_length=100)
-
-    def __str__(self) -> str:
-        return self.name
-
-class Diagnoses_Date_Medications(models.Model):
     diagnoses = models.CharField("Diagnoses",max_length=255)
     operation_type = models.CharField("Operation Type",max_length=255)
     entry_date_time = models.DateTimeField("entry date time",auto_now_add=True)
     operation_date_time = models.DateTimeField("operation date time",auto_now_add=False)
     leaving_date_time = models.DateTimeField("leaving date time",auto_now_add=False)
     medications = models.TextField("Medications")
-    patient = models.ForeignKey(Profile,related_name="Diagnoses_Date_Medications",on_delete=models.CASCADE,verbose_name="patient")
-    def __str__(self) -> str:
-        return self.diagnoses
-
-class Operation_Info(models.Model):
-    operative_finding = models.CharField("operative finding",max_length=255)
-    operative_procedure = models.CharField("operative procedure",max_length=255)
-    operative_note = models.CharField("operative note",max_length=255)
+    operative_finding = models.TextField("operative finding",max_length=255)
+    operative_procedure = models.TextField("operative procedure",max_length=255)
+    operative_note = models.TextField("operative note",max_length=255)
     specimen_to_laboratory = models.BooleanField("specimen to laboratory")
-    patient = models.ForeignKey(Profile,related_name="Operation_Info",on_delete=models.CASCADE,verbose_name="patient")
-
-    def __str__(self) -> str:
-        return self.operative_finding
-
-
-
-
-class Doctors_and_Staff(models.Model):
     consultant_surgeon = models.CharField("consultant surgeon",max_length=255)
     co_surgeon = models.CharField("co_surgeon",max_length=255)
     surgeon = models.CharField("surgeon",max_length=255)
@@ -45,7 +36,10 @@ class Doctors_and_Staff(models.Model):
     nurse = models.CharField("nurse",max_length=255)
     sponge_nurse = models.CharField("sponge_nurse",max_length=255)
     doctor_name = models.CharField("doctor_name",max_length=255)
-    patient = models.ForeignKey(Profile,related_name="Doctors_and_Staff",on_delete=models.CASCADE,verbose_name="patient")
+    added_by = models.ForeignKey(User,verbose_name="Added By",on_delete=models.SET_NULL,null=True)
 
     def __str__(self) -> str:
-        return self.consultant_surgeon
+        return self.name
+
+
+
